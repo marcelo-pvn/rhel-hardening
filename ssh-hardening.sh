@@ -72,11 +72,13 @@ while true; do
                 mkdir /home/$NEWUSER/.ssh
                 echo $PUBKEY >> /home/$NEWUSER/.ssh/authorized_keys
                 chown -R $NEWUSER:$NEWUSER /home/$NEWUSER/.ssh
-                chmod -R 600 /home/$NEWUSER/.ssh
+                chmod 700 /home/$NEWUSER/.ssh
+                chmod 600 /home/$NEWUSER/.sshauthorized_keys
                 mkdir /root/.ssh
                 echo $PUBKEY >> /root/.ssh/authorized_keys
                 chown -R root:root /root/.ssh
-                chmod -R 600 /root/.ssh
+                chmod 700 /root/.ssh
+                chmod 600 /root/.ssh/authorized_keys
 
                 # Configure the SSH server
                 sed -i "0,/Port/{s/.*Port.*/Port $PORT/}" /etc/ssh/sshd_config
@@ -90,7 +92,7 @@ while true; do
                 sed -i "0,/MaxSessions/{s/.*MaxSessions.*/MaxSessions 5/}" /etc/ssh/sshd_config
                 sed -i "0,/AllowUsers/{s/.*AllowUsers.*/AllowUsers $ALLOWED/}" /etc/ssh/sshd_config
                 sed -i "0,/PubkeyAuthentication/{s/.*PubkeyAuthentication.*/PubkeyAuthentication yes/}" /etc/ssh/sshd_config
-                sed -i "0,/AuthorizedKeysFile/{s/.*AuthorizedKeysFile.*/AuthorizedKeysFile \.\/ssh\/authorized_keys/}" /etc/ssh/sshd_config
+                sed -i "0,/AuthorizedKeysFile/{s/.*AuthorizedKeysFile.*/AuthorizedKeysFile \.ssh\/authorized_keys/}" /etc/ssh/sshd_config
                 sed -i "0,/HostbasedAuthentication/{s/.*HostbasedAuthentication.*/HostbasedAuthentication yes/}" /etc/ssh/sshd_config
                 sed -i "0,/IgnoreUserKnownHosts/{s/.*IgnoreUserKnownHosts.*/IgnoreUserKnownHosts yes/}" /etc/ssh/sshd_config
                 sed -i "0,/IgnoreRhosts/{s/.*IgnoreRhosts.*/IgnoreRhosts yes/}" /etc/ssh/sshd_config
