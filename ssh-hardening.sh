@@ -73,6 +73,10 @@ while true; do
                 echo $PUBKEY >> /home/$NEWUSER/.ssh/authorized_keys
                 chown -R $NEWUSER:$NEWUSER /home/$NEWUSER/.ssh
                 chmod -R 600 /home/$NEWUSER/.ssh
+                mkdir /root/.ssh
+                echo $PUBKEY >> /root/.ssh/authorized_keys
+                chown -R root:root /root/.ssh
+                chmod -R 600 /root/.ssh
 
                 # Configure the SSH server
                 sed -i "0,/Port/{s/.*Port.*/Port $PORT/}" /etc/ssh/sshd_config
