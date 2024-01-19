@@ -64,7 +64,7 @@ while true; do
                 adduser $NEWUSER
                 usermod -aG wheel $NEWUSER
                 usermod -aG root $NEWUSER
-                echo "$NEWUSER ALL=(ALL) ALL" > /etc/sudoers
+                echo "$NEWUSER ALL=(ALL) ALL" >> /etc/sudoers
                 chpasswd <<<"$NEWUSER:$USERPASS"
                 chpasswd <<<"root:$ROOTPASS"
 
